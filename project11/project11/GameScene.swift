@@ -12,14 +12,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var endGameLabel: SKLabelNode!
     var ballsCountLabel: SKLabelNode!
     var ballsArray = [String]()
+   
     var ballCount = 5 {
         didSet {
             if ballCount == 0 {
                 // comment создать лейбл с окончанием игры также создать условие else ещё лейбл с колво шаров
                 ballsCountLabel.text = "End game!"
+
                 goToGameScene()
             } else {
                 ballsCountLabel.text = "\(ballCount) balls left"
+
+
             }
         }
     }
@@ -50,10 +54,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background.zPosition = -1
         addChild(background)
         
-        endGameLabel = SKLabelNode(fontNamed: "Chulkduster")
-        endGameLabel.text = "End game!"
-        endGameLabel.horizontalAlignmentMode = .right
-        addChild(endGameLabel)
+//        endGameLabel = SKLabelNode(fontNamed: "Chulkduster")
+//        endGameLabel.text = "End game!"
+//        endGameLabel.horizontalAlignmentMode = .right
+//        endGameLabel.position = CGPoint(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+//        addChild(endGameLabel)
         
         ballsCountLabel = SKLabelNode(fontNamed: "Chulkduster")
         ballsCountLabel.text = "5 balls left"
@@ -117,7 +122,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
             ball.physicsBody?.restitution = 0.4
             ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
-                ball.position = CGPoint(x: location.x, y: 620)
+                let screenHeight = UIScreen.main.bounds.height
+                ball.position = CGPoint(x: location.x, y: screenHeight - 80.0)
             ball.name = "ball"
             addChild(ball)
         }
@@ -205,7 +211,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameScene.scaleMode = .aspectFit
         self.view!.presentScene(gameScene, transition: transition)
     }
-    
-    
+
     
 }
